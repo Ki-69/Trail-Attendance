@@ -1,0 +1,376 @@
+#:kivy 2.2.1
+
+ScreenManager:
+    HomePage:
+    AllPresent:
+    EditDatbase:
+    SelectPage:
+    ResultPage:
+    AddtoDatabase:
+    DeletefromDatabase:
+    AddFile:
+    Database:
+    LoadingScreen:
+    DisplayDataPage:
+    SelectResultPage:
+    DeleteResultPage:
+    CreateTables:
+
+<HomePage>:
+    name: 'home_page'
+    BoxLayout:
+        orientation: 'vertical'
+
+        Label:
+            text: 'ATTENDANCE APP'
+            font_size: 54 # Adjust font size as needed
+            size_hint_y: None
+            height: '1000dp'  # Adjust the height of the heading
+            pos_hint: {'center_x': 0.5,'top':1}  
+            
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 50
+        padding: 50
+        background_color: 0, 0, 1, 1
+        Label:
+            text: 'ATTENDANCE APP'
+            font_size: 54 # Adjust font size as needed
+            size_hint_y: None
+            height: '1000dp'  # Adjust the height of the heading
+            pos_hint: {'center_x': 0.5,'top':1}  
+        GridLayout:
+            cols: 1
+            spacing: 10
+            size_hint_y: None
+            height: self.minimum_height
+            
+            TextInput:
+                id: class_id_input
+                multiline: False
+                hint_text: 'Class ID'
+                size_hint_y: None
+                height: 50
+                width: 100
+                on_text: root.update_class_id(self.text)
+            
+            TextInput:
+                id: password_input
+                multiline: False
+                hint_text: 'Password'
+                password: True
+                size_hint_y: None
+                height: 50
+                width: 50
+                on_text: root.update_password(self.text)
+            Widget:  # Spacer
+                size_hint_y: None
+                height: 300
+            Button:
+                text: 'Proceed'
+                size_hint_y: None
+                height: 50
+                width: 50
+                background_color: 0.9, 0, 0.9, 1
+                color: 1, 1, 1, 1
+                on_release:
+                    root.manager.current = 'all_present_page'
+                    app.root.transition.direction = 'left'
+                    root.authenticate()
+
+<AllPresent>:
+    name: 'all_present_page'
+    BoxLayout:
+        orientation: 'vertical'
+
+        Label:
+            text: 'Main Menu'
+            font_size: 54 # Adjust font size as needed
+            size_hint_y: None
+            height: '380dp'  # Adjust the height of the heading
+            pos_hint: {'center_x': 0.5,'top':1}  
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 20
+        background_color: 0, 0, 1, 1
+        Button:
+            text: 'Create New Table'
+            size_hint: 0.5, None
+            height: 60
+            pos_hint: {'center_x': 0.5} 
+            background_color: 0.9, 0, 0.9, 1
+            color: 1, 1, 1, 1
+            on_release: 
+                root.manager.current = 'table_page'
+                app.root.transition.direction = 'left'
+                # root.create_new_tables()
+        Button:
+            text: 'Mark All Present'
+            size_hint: 0.5, None
+            height: 60
+            pos_hint: {'center_x': 0.5} 
+            background_color: 0.9, 0, 0.9, 1
+            color: 1, 1, 1, 1
+            on_release: 
+                root.manager.current = 'result_page'
+                app.root.transition.direction = 'left'
+                root.mark_all_present()
+        Button:
+            text: 'Custom Marking'
+            size_hint: 0.5, None
+            height: 60
+            background_color: 0.9, 0, 0.9, 1
+            color: 1, 1, 1, 1
+            pos_hint: {'center_x': 0.5} 
+            on_release: 
+                root.manager.current = 'select_page'
+                app.root.transition.direction = 'left'
+        Button:
+            text: 'Edit Current Database'
+            size_hint: 0.5, None
+            height: 60
+            pos_hint: {'center_x': 0.5} 
+            background_color: 0.9, 0, 0.9, 1
+            color: 1, 1, 1, 1
+            on_release: 
+                root.manager.current = 'edit_database'
+                app.root.transition.direction = 'left'
+        Button:
+            text: 'Add to Database'
+            size_hint: 0.5, None
+            height: 60
+            pos_hint: {'center_x': 0.5} 
+            background_color: 0.9, 0, 0.9, 1
+            color: 1, 1, 1, 1
+            on_release: 
+                root.manager.current = 'add_file'
+                app.root.transition.direction = 'left'
+        Button:
+            text: 'Show Data in Table'
+            size_hint: 0.5, None
+            height: 60
+            pos_hint: {'center_x': 0.5} 
+            background_color: 0.9, 0, 0.9, 1
+            color: 1, 1, 1, 1
+            on_release: 
+                root.manager.current = 'displaydata'
+                app.root.transition.direction = 'left'
+        BoxLayout:
+            orientation: 'horizontal'
+            Button:
+                text: 'Back'
+                size_hint: 0.2, None
+                height: 40
+                background_color: 0.5, 0, 0.5, 1 
+                color: 1, 1, 1, 1  
+                on_release: 
+                    root.manager.current = 'home_page'
+                    app.root.transition.direction = 'right'
+            Button:
+                text: 'Exit'
+                size_hint: 0.2, None
+                height: 40
+                background_color: 0.5, 0, 0.5, 1  
+                color: 1, 1, 1, 1  
+                on_release:
+                    app.stop()
+<DisplayDataPage>:
+    name: "displaydata"
+    BoxLayout:
+        orientation: "vertical"
+       
+<EditDatbase>:
+    name: 'edit_database'
+    BoxLayout:
+        orientation: 'vertical'
+
+        Label:
+            text: 'ATTENDANCE APP'
+            font_size: 54 # Adjust font size as needed
+            size_hint_y: None
+            height: '100dp'  # Adjust the height of the heading
+            pos_hint: {'center_x': 0.5,'top':1}  
+  
+
+<SelectPage>:
+    name: 'select_page'
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        
+<AddtoDatabase>:
+    name: "addtodatabase"
+
+<LoadingScreen>:
+    BoxLayout:
+        id: container
+        orientation: 'vertical'
+        Label:
+            text: 'Loading...'
+
+<DeletefromDatabase>:
+    name: 'deletedatabase'
+    BoxLayout:
+        orientation:'vertical'
+        background_color: 0, 0, 1, 1  
+        Button:
+            text: 'Done'
+            size_hint: 0.1, 0.1
+            pos_hint: {'x': 0.9, 'top': 1}
+            background_color: 0.5, 0, 0.5, 1  
+            color: 1, 1, 1, 1  
+            on_release: 
+                root.manager.current = 'delete_result_page'
+                app.root.transition.direction = 'left'
+                root.delete_from_database()
+        Button:
+            text: 'Back'
+            background_color: 0.5, 0, 0.5, 1  
+            color: 1, 1, 1, 1  
+            on_release: 
+                root.manager.current = 'all_present_page'
+                app.root.transition.direction = 'right'
+            pos_hint: {'x': 0, 'top': 1}
+            size_hint: 0.1, 0.1
+        Button:
+            text: 'Exit'
+            size_hint: 0.1, None
+            pos_hint: {'x': 0.9, 'top': 1}
+            height: 40
+            background_color: 0.5, 0, 0.5, 1  
+            color: 1, 1, 1, 1  
+            on_release:
+                app.stop()
+        Button:
+            text: "Delete All"
+            size_hint: 0.1, 0.1
+            pos_hint: {'x': 0.9, 'top': 1}
+            background_color: 0.5, 0, 0.5, 1  
+            color: 1, 1, 1, 1  
+            on_release: 
+                root.delete_everything()
+
+<AddFile>:
+
+    name: 'add_file'
+
+
+
+
+<SelectResultPage>:
+    name: 'select_result_page'
+    BoxLayout:
+        orientation: 'vertical'
+
+        Label:
+            text: 'Result page'
+            font_size: 74 # Adjust font size as needed
+            size_hint_y: None
+            height: '1000dp'  # Adjust the height of the heading
+            pos_hint: {'center_x': 0.5,'top':1}  
+            
+    GridLayout:
+        cols: 1
+        Label:
+            id: absent_count_label
+            text: "Absentees: 0"  
+            font_size: 40
+        BoxLayout:
+            size_hint_y: None
+            height: "40dp"
+            Button:
+                text: "Back"
+                background_color: 0.5, 0, 0.5, 1  
+                color: 1, 1, 1, 1  
+                on_release: app.root.current = 'all_present_page'  
+            Button:
+                text: "Exit"
+                background_color: 0.5, 0, 0.5, 1  
+                color: 1, 1, 1, 1 
+                on_release: app.stop()
+
+<DeleteResultPage>:
+    name: 'delete_result_page'
+    BoxLayout:
+        orientation: 'vertical'
+
+        Label:
+            text: 'Result page'
+            font_size: 74 # Adjust font size as needed
+            size_hint_y: None
+            height: '1000dp'  # Adjust the height of the heading
+            pos_hint: {'center_x': 0.5,'top':1}  
+            
+    GridLayout:
+        cols: 1
+        Label:
+            id: delete_count_label
+            text: "Records Deleted: 0"  
+            font_size:40
+        BoxLayout:
+            size_hint_y: None
+            height: "40dp"
+            Button:
+                text: "Back"
+                background_color: 0.5, 0, 0.5, 1  
+                color: 1, 1, 1, 1  
+                on_release: app.root.current = 'all_present_page'  
+            Button:
+                text: "Exit"
+                background_color: 0.5, 0, 0.5, 1  
+                color: 1, 1, 1, 1 
+                on_release: app.stop()
+
+<ResultPage>:
+    name: 'result_page'
+<CreateTables>:
+    name: 'table_page'
+    BoxLayout:
+        orientation: 'vertical'
+
+        Label:
+            text: 'Add New Table to Database'
+            font_size: 70  # Adjust font size as needed
+            size_hint_y: None
+            height: '300dp'  # Adjust the height of the heading
+            pos_hint: {'center_x': 0.5, 'top': 1}
+
+        BoxLayout:
+            orientation: 'vertical'
+            # Other widgets...
+
+            TextInput:
+                id: class_input  # Assign an ID to the TextInput
+                hint_text: 'Enter Class Name'
+                multiline: False
+                size_hint_y: None
+                height: 70
+                width: 50
+            Widget:  # Spacer
+                size_hint_y: None
+                height: 150
+        GridLayout:
+            cols: 1
+            spacing: 10
+            Button:
+                text: 'Proceed'
+                size_hint_y: None
+                height: 50
+                width: 50
+                background_color: 0.9, 0, 0.9, 1
+                color: 1, 1, 1, 1
+                on_release: 
+                    root.create_new_tables(class_input.text)  # Pass TextInput text to the function
+                    app.root.current = 'all_present_page'  # Change screen after processing
+
+            Button:
+                text: "Back"
+                size_hint_y: None
+                height: 50
+                width: 50
+                background_color: 0.9, 0, 0.9, 1
+                color: 1, 1, 1, 1
+                on_release: app.root.current = 'all_present_page'
+            
